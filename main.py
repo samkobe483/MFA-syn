@@ -19,7 +19,7 @@ import torch.nn.functional as F
 
 # 导入模型和数据处理类
 from dataset import GetData, MyTestDataset, load_cell_data, CELL_DIR, CELL_FEA_DIR, DATAS_DIR, DATASET_NAME
-from model import DSPSCL, device
+from model import mfa, device
 
 
 def plot_regression_results(y_true, y_pred, pcc, scc, fold, save_dir):
@@ -129,7 +129,7 @@ if __name__ == '__main__':
         modeldir = f'Modelscl_{DATASET_NAME}_regression'
         os.makedirs(modeldir, exist_ok=True)
 
-        model = DSPSCL(
+        model = mfa(
             modeldir=modeldir,
             foldnum=fold,
             hiddim=8192,
