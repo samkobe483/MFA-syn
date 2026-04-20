@@ -1,18 +1,16 @@
 # python3
 # -*- coding:utf-8 -*-
 """
-适配新版 get_dataset.py 的回归训练脚本
+适配新版 dataset.py 的回归训练脚本
 - 数据文件: synergybliss_processed.txt
 - 生成对称样本
 - 全局特征标准化 (在 prepare 中完成)
 """
 import os
-import sys
 import numpy as np
 import pandas as pd
 import torch
 import matplotlib.pyplot as plt
-from datetime import datetime
 from torch_geometric.loader import DataLoader as GeometricDataLoader
 from sklearn.metrics import mean_squared_error
 from scipy.stats import pearsonr, spearmanr
