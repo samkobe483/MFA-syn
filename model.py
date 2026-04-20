@@ -651,10 +651,10 @@ class SupervisedContrastiveLoss(nn.Module):
 
 
 # ============================================================================
-# 训练类：DSPSCL
+# 训练类：mfa
 # ============================================================================
-class DSPSCL:
-    """Drug Synergy Prediction with Supervised Contrastive Learning (优化版)"""
+class mfa:
+    """Multi-Feature Attention Synergy Model (优化版)"""
 
     def __init__(self, modeldir='Modelscl', foldnum=0, hiddim=8192, mmse=1000, task='classification', global_mean=0.0, global_std=1.0):
         self.modeldir = modeldir
