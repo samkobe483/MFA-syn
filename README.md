@@ -1,34 +1,37 @@
-# DSPSCL: Drug Synergy Prediction via Self-Supervised Contrastive Learning
+# MFASyn: Multimodal Drug Synergy Prediction via Adaptive Feature Reconstruction and Bilinear Interaction Pooling
 
-A deep learning framework for anti-cancer drug combination synergy prediction using multi-source information fusion and attention mechanisms.
+A deep learning framework for anti-cancer drug combination synergy prediction using adaptive feature selection, dual-pathway cell encoding, and second-order interaction modeling.
 
 ## Overview
 
-DSPSCL integrates:
-- **Drug features**: Chemical structure (Morgan fingerprints), target proteins, and pathway information
-- **Cell line features**: Gene expression and mutation data via autoencoder embeddings
-- **Attention mechanism**: Multi-head self-attention for learning combined drug representations
-- **Contrastive learning**: Self-supervised pre-training for better feature representations
+MFASyn (Multimodal Feature Adaptive Synergy) integrates:
+- Adaptive Drug Features: Uses SE-Blocks (Squeeze-and-Excitation) to filter Morgan fingerprints and Transformer encoders for drug-target/pathway interactions.
+- Dual-Pathway Cell Line Encoder:
+Feature Branch: Processes gene expression data.
+Structure Branch: Utilizes GIN (Graph Isomorphism Network) to extract topological features from Protein-Protein Interaction (PPI) networks.
+-Bilinear Interaction Pooling: Explicitly models second-order multiplicative interactions between drugs and cell lines to capture non-additive dependencies.
+-Regression Analysis: Optimized for predicting continuous synergy scores (e.g., Loewe, Bliss) with high precision.
 
 ## Installation
 
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/yourusername/DSPSCL.git
-cd DSPSCL
+git clone https://github.com/yourusername/MFASyn.git
+cd MFASyn
 ```
 
 ### 2. Create conda environment
 
 ```bash
+Recommended dependencies: torch, torch_geometric, rdkit, lifelines
 conda env create -f environment.yaml
 ```
 
 ### 3. Activate environment
 
 ```bash
-conda activate DSPSCL
+conda activate MFASyn
 ```
 
 ## Dataset
@@ -50,22 +53,16 @@ Place your data files in the `data/` directory:
 ### Training
 
 ```bash
-# Train the model with 5-fold cross-validation
+# # Train the model and evaluate regression performance
 python main.py
 ```
 
 ### Evaluation
 
 ```bash
-# Run ablation study
-python ablation_study.py
+# # Generate regression scatter plots and performance metrics (MSE, PCC, SCC, CI)
+# Plots are saved in the results/figures/ directory
 
-# Cell line analysis
-python patch_cell_line_analysis.py
-
-# Visualization
-python keshihua.py
-```
 
 ### Configuration
 
@@ -77,15 +74,12 @@ SYNERGY_FILENAME = 'oneil_synergyloewe.txt'  # or 'almanac_synergyloewe.txt'
 ## Project Structure
 
 ```
-DSPSCL/
+MFAsyn/
 ├── data/                    # Data files
 ├── results/                 # Training results
-├── attention_vis/           # Attention visualization
 ├── main.py                  # Main training script
 ├── model.py                 # DSPSCL model
 ├── get_dataset.py           # Data loading and processing
-├── ablation_study.py        # Ablation experiments
-├── keshihua.py              # Visualization
 └── environment.yaml         # Conda environment
 ```
 
@@ -100,3 +94,4 @@ DSPSCL/
 ## Citation
 
 If you use this code, please cite our work.
+
