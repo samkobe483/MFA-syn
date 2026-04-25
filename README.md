@@ -1,10 +1,10 @@
-# MFASyn: Multimodal Drug Synergy Prediction via Adaptive Feature Reconstruction and Bilinear Interaction Pooling
+# AFBMSyn: Multimodal Drug Synergy Prediction based on Adaptive Feature Learning and Bilinear Interaction Modeling
 
 A deep learning framework for anti-cancer drug combination synergy prediction using adaptive feature selection, dual-pathway cell encoding, and second-order interaction modeling.
 
 ## Overview
 
-MFASyn (Multimodal Feature Adaptive Synergy) integrates:
+AFBMSyn (Adaptive Feature and Bilinear Modeling Synergy) integrates:
 - Adaptive Drug Features: Uses SE-Blocks (Squeeze-and-Excitation) to filter Morgan fingerprints and Transformer encoders for drug-target/pathway interactions.
 - Dual-Pathway Cell Line Encoder:
 Feature Branch: Processes gene expression data.
@@ -17,8 +17,8 @@ Structure Branch: Utilizes GIN (Graph Isomorphism Network) to extract topologica
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/yourusername/MFASyn.git
-cd MFASyn
+git clone https://github.com/yourusername/AFBMSyn.git
+cd AFBMSyn
 ```
 
 ### 2. Create conda environment
@@ -31,7 +31,7 @@ conda env create -f environment.yaml
 ### 3. Activate environment
 
 ```bash
-conda activate MFASyn
+conda activate AFBMSyn
 ```
 
 ## Dataset
@@ -74,11 +74,11 @@ SYNERGY_FILENAME = 'oneil_synergyloewe.txt'  # or 'almanac_synergyloewe.txt'
 ## Project Structure
 
 ```
-MFAsyn/
+AFBMSyn/
 ├── data/                    # Data files
 ├── results/                 # Training results
 ├── main.py                  # Main training script
-├── model.py                 # DSPSCL model
+├── model.py                 # AFBMSyn model
 ├── get_dataset.py           # Data loading and processing
 └── environment.yaml         # Conda environment
 ```
