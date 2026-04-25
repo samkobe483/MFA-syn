@@ -1,70 +1,12 @@
-# Cell Line Embedding with PPI Network
-
-This sub-project generates cell line embeddings using protein-protein interaction (PPI) networks and omics data (gene expression and mutation). Used for drug synergy prediction.
-
----
-
-## File Description
-
-| File | Description |
-|------|-------------|
-| `const.py` | Data path configuration |
-| `dataset.py` | Dataset classes (C2VDataset, C2VSymDataset) |
-| `model.py` | Model architecture (GINEncoder, Cell2Vec, RandomW) |
-| `train.py` | Training script for cell embeddings |
-| `gen_feat.py` | Generate normalized cell features from embeddings |
-| `utils.py` | Utility functions (model saving, loss visualization) |
-| `train_gin_example.py` | Example showing GIN encoder usage |
-
----
-
-## Data Files (in `data/Cell/data/data/`)
-
-| File | Description |
-|------|-------------|
-| `ppi.coo.npy` | PPI network edges (COO format) |
-| `node_features.npy` | Node features for PPI graph |
-| `target_ge.npy` | Gene expression targets |
-| `nodes_ge.npy` | Valid gene nodes for GE |
-| `target_mut.npy` | Mutation targets |
-| `nodes_mut.npy` | Valid gene nodes for MUT |
-| `cell_feat.npy` | Output: normalized cell features |
-
----
-
-## Run Instructions
-
-### Step 1: Prepare data
-Ensure the following files exist in `data/Cell/data/data/`:
-- `ppi.coo.npy` - PPI network edges
-- `node_features.npy` - Node features
-- `target_ge.npy`, `nodes_ge.npy` - Gene expression data
-- `target_mut.npy`, `nodes_mut.npy` - Mutation data
-
-### Step 2: Train cell embeddings
-```bash
-python train.py
-```
-Trains GE and MUT embeddings (default: 128 hidden dim, 384 embedding dim)
-
-### Step 3: Generate cell features
-```bash
+AFBMSyn: Cell Line Embedding via PPI NetworkThis sub-module provides the Structure Branch for AFBMSyn, generating cell line embeddings by integrating Protein-Protein Interaction (PPI) networks with multi-omics data (Gene Expression and Mutation).OverviewThe cell line encoding process in AFBMSyn follows the PRODeepSyn methodology:Graph Encoding: Uses a Graph Isomorphism Network (GIN) to capture the topological importance of genes within the PPI network.Multi-Omics Integration: Combines gene expression (GE) and mutation (MUT) profiles to create a holistic representation of cellular states.Pre-training: Embeddings are trained to reconstruct omics profiles before being used as fixed features in the drug synergy prediction task.Project StructureCell_Embedding/
+├── data/                    # PPI and Omics data files
+├── const.py                 # Path and hyperparameter configurations
+├── dataset.py               # Dataset classes (C2VDataset)
+├── model.py                 # Architecture (GINEncoder, Cell2Vec)
+├── train.py                 # Training script for embeddings
+├── gen_feat.py              # Feature generation and normalization
+└── utils.py                 # Utility functions and visualization
+Data RequirementsPlace the following files in data/Cell/data/data/:FileDescriptionppi.coo.npyPPI network edge index (COO format)node_features.npyInitial node features for the PPI graphtarget_ge.npyGene expression target values for cell linesnodes_ge.npyMap of valid gene nodes for GE branchtarget_mut.npyMutation target values for cell linesnodes_mut.npyMap of valid gene nodes for MUT branchUsage1. Training Cell EmbeddingsTrain the model to learn cell line representations based on GE and MUT tasks:Bashpython train.py
+Default configuration: 128 hidden units, 384 embedding dimensions.2. Generating Normalized FeaturesAfter training, extract and normalize the embeddings to generate the final feature matrix used by AFBMSyn:Bash# Replace 'mdl_ge_...' with your actual saved model names
 python gen_feat.py mdl_ge_128x384_sample mdl_mut_128x384_sample
-```
-Generates normalized cell features from saved embeddings
-
-### Output
-`data/Cell/data/data/cell_feat.npy` - Cell line feature matrix
-
----
-
-## Model Architecture
-
-- **GINEncoder**: Graph Isomorphism Network for PPI graph encoding
-- **Cell2Vec**: Cell line embedding model combining PPI features with learnable cell embeddings
-- Supports both regression and classification tasks
-
----
-
-## Citation
-Xiaowen Wang, et al. "PRODeepSyn: predicting anticancer synergistic drug combinations by embedding cell lines with protein–protein interaction network." Briefings in Bioinformatics, 2022.
+3. OutputThe final feature matrix will be saved to:data/Cell/data/data/cell_feat.npyNote: Ensure this file is moved or linked to the main AFBMSyn/data/ directory for synergy prediction.Architecture DetailsGINEncoder: A 5-layer Graph Isomorphism Network that aggregates neighborhood information in the PPI network.Cell2Vec: A fusion module that computes the interaction between learnable cell-specific embeddings and gene-specific graph features.CitationIf you use this embedding module in your research, please cite:Xiaowen Wang, et al. "PRODeepSyn: predicting anticancer synergistic drug combinations by embedding cell lines with protein–protein interaction network." Briefings in Bioinformatics, 2022.
