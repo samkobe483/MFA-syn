@@ -79,7 +79,7 @@ AFBMSyn/
 ├── results/                 # Training results
 ├── main.py                  # Main training script
 ├── model.py                 # AFBMSyn model
-├── get_dataset.py           # Data loading and processing
+├── dataset.py           # Data loading and processing
 └── environment.yaml         # Conda environment
 ```
 
